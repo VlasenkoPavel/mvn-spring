@@ -2,7 +2,7 @@ package com.psvlasenko;
 
 import java.util.List;
 
-import com.psvlasenko.entities.Singer;
+import com.psvlasenko.infrastructure.entities.Singer;
 import com.psvlasenko.service.SingerService;
 import org.springframework.context.support.GenericXmlApplicationContext;
 

@@ -1,6 +1,6 @@
 package com.psvlasenko.service;
 
-import com.psvlasenko.entities.Singer;
+import com.psvlasenko.infrastructure.entities.Singer;
 
 import java.util.List;
 

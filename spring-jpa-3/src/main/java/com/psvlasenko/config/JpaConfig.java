@@ -66,7 +66,7 @@ public class JpaConfig {
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setPackagesToScan("com.psvlasenko.entities");
+		factoryBean.setPackagesToScan("com.psvlasenko.infrastructure.entities");
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setJpaProperties(hibernateProperties());
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());

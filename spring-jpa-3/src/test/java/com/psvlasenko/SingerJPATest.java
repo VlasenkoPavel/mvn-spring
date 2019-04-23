@@ -1,9 +1,8 @@
 package com.psvlasenko;
 
 import com.psvlasenko.config.JpaConfig;
-import com.psvlasenko.entities.Album;
-import com.psvlasenko.entities.Instrument;
-import com.psvlasenko.entities.Singer;
+import com.psvlasenko.infrastructure.entities.Album;
+import com.psvlasenko.infrastructure.entities.Singer;
 import com.psvlasenko.service.SingerService;
 import org.junit.After;
 import org.junit.Before;

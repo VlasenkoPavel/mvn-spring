@@ -1,4 +1,4 @@
-package com.psvlasenko.entities;
+package com.psvlasenko.infrastructure.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
