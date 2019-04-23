@@ -1,14 +1,14 @@
 package com.psvlasenko.service;
 
-import com.psvlasenko.infrastructure.entities.Singer;
+import com.psvlasenko.infrastructure.entities.SingerRecord;
 
 import java.util.List;
 
 public interface SingerService {
-    List<Singer> findAll();
-    List<Singer> findAllWithAlbum();
-    Singer findById(Long id);
-    Singer save(Singer singer);
-    void delete(Singer singer);
-    List<Singer> findAllByNativeQuery();
+    List<SingerRecord> findAll();
+    List<SingerRecord> findAllWithAlbum();
+    SingerRecord findById(Long id);
+    SingerRecord save(SingerRecord singer);
+    void delete(SingerRecord singer);
+    List<SingerRecord> findAllByNativeQuery();
 }

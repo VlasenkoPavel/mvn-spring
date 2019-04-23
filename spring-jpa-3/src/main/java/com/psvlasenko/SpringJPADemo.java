@@ -2,7 +2,7 @@ package com.psvlasenko;
 
 import java.util.List;
 
-import com.psvlasenko.infrastructure.entities.Singer;
+import com.psvlasenko.infrastructure.entities.SingerRecord;
 import com.psvlasenko.service.SingerService;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -14,9 +14,9 @@ public class SpringJPADemo {
 
         SingerService singerService = ctx.getBean(SingerService.class);
 
-        List<Singer> singers = singerService.findAll();
+        List<SingerRecord> singers = singerService.findAll();
 
-        for(Singer singer : singers) {
+        for(SingerRecord singer : singers) {
             System.out.println(singer);
         }
 

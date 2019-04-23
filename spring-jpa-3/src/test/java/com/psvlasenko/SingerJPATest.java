@@ -1,8 +1,8 @@
 package com.psvlasenko;
 
 import com.psvlasenko.config.JpaConfig;
-import com.psvlasenko.infrastructure.entities.Album;
-import com.psvlasenko.infrastructure.entities.Singer;
+import com.psvlasenko.infrastructure.entities.AlbumRecord;
+import com.psvlasenko.infrastructure.entities.SingerRecord;
 import com.psvlasenko.service.SingerService;
 import org.junit.After;
 import org.junit.Before;
@@ -37,24 +37,24 @@ public class SingerJPATest {
 
 	@Test
 	public void testFindAll(){
-		List<Singer> singers = singerService.findAll();
+		List<SingerRecord> singers = singerService.findAll();
 		assertEquals(3, singers.size());
 		listSingers(singers);
 	}
 
 	@Test
 	public void testFindAllWithAlbum(){
-		List<Singer> singers = singerService.findAllWithAlbum();
+		List<SingerRecord> singers = singerService.findAllWithAlbum();
 		assertEquals(3, singers.size());
 		listSingersWithAlbum(singers);
 	}
 
-	private static void listSingers(List<Singer> singers) {
+	private static void listSingers(List<SingerRecord> singers) {
 		logger.info(" ---- Listing singers:");
 		singers.forEach(s -> logger.info(s.toString()));
 	}
 
-	private static void listSingersWithAlbum(List<Singer> singers) {
+	private static void listSingersWithAlbum(List<SingerRecord> singers) {
 		logger.info(" ---- Listing singers with instruments:");
 		singers.forEach(s -> {
 			logger.info(s.toString());
@@ -69,19 +69,19 @@ public class SingerJPATest {
 
 	@Test
 	public void testInsert(){
-		Singer singer = new Singer();
+		SingerRecord singer = new SingerRecord();
 		singer.setFirstName("BB");
 		singer.setLastName("King");
 		singer.setBirthDate(new Date(
 				(new GregorianCalendar(1940, 8, 16)).getTime().getTime()));
 
-		Album album = new Album();
+		AlbumRecord album = new AlbumRecord();
 		album.setTitle("My Kind of Blues");
 		album.setReleaseDate(new java.sql.Date(
 				(new GregorianCalendar(1961, 7, 18)).getTime().getTime()));
 		singer.addAlbum(album);
 
-		album = new Album();
+		album = new AlbumRecord();
 		album.setTitle("A Heart Full of Blues");
 		album.setReleaseDate(new java.sql.Date(
 				(new GregorianCalendar(1962, 3, 20)).getTime().getTime()));
@@ -90,20 +90,20 @@ public class SingerJPATest {
 		singerService.save(singer);
 		assertNotNull(singer.getId());
 
-		List<Singer> singers = singerService.findAllWithAlbum();
+		List<SingerRecord> singers = singerService.findAllWithAlbum();
 		assertEquals(4, singers.size());
 		listSingersWithAlbum(singers);
 	}
 
 	@Test
 	public void testUpdate(){
-		Singer singer = singerService.findById(1L);
+		SingerRecord singer = singerService.findById(1L);
 		//making sure such singer exists
 		assertNotNull(singer);
 		//making sure we got expected record
 		assertEquals("Mayer", singer.getLastName());
 		//retrieve the album
-		Album album = singer.getAlbums().stream().filter(a -> a.getTitle().equals("Battle Studies")).findFirst().get();
+		AlbumRecord album = singer.getAlbums().stream().filter(a -> a.getTitle().equals("Battle Studies")).findFirst().get();
 
 		singer.setFirstName("John Clayton");
 		singer.removeAlbum(album);
@@ -115,7 +115,7 @@ public class SingerJPATest {
 
 	@Test
 	public void testDelete(){
-		Singer singer = singerService.findById(2l);
+		SingerRecord singer = singerService.findById(2l);
 		//making sure such singer exists
 		assertNotNull(singer);
 		singerService.delete(singer);
@@ -126,7 +126,7 @@ public class SingerJPATest {
 
 	@Test
 	public void testFindById(){
-		Singer singer = singerService.findById(1L);
+		SingerRecord singer = singerService.findById(1L);
 		assertNotNull(singer);
 		assertEquals("Mayer", singer.getLastName());
 		logger.info(singer.toString());

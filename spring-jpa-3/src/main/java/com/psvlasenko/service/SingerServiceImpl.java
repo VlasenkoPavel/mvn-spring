@@ -1,6 +1,6 @@
 package com.psvlasenko.service;
 
-import com.psvlasenko.infrastructure.entities.Singer;
+import com.psvlasenko.infrastructure.entities.SingerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,27 +29,27 @@ public class SingerServiceImpl implements SingerService {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Singer> findAll() {
-        return em.createNamedQuery(Singer.FIND_ALL, Singer.class).getResultList();
+    public List<SingerRecord> findAll() {
+        return em.createNamedQuery(SingerRecord.FIND_ALL, SingerRecord.class).getResultList();
     }
 
     @Transactional(readOnly=true)
     @Override
-    public List<Singer> findAllWithAlbum() {
-        List<Singer> singers = em.createNamedQuery(Singer.FIND_ALL_WITH_ALBUM, Singer.class).getResultList();
+    public List<SingerRecord> findAllWithAlbum() {
+        List<SingerRecord> singers = em.createNamedQuery(SingerRecord.FIND_ALL_WITH_ALBUM, SingerRecord.class).getResultList();
         return singers;
     }
 
     @Transactional(readOnly=true)
     @Override
-    public Singer findById(Long id) {
-        TypedQuery<Singer> query = em.createNamedQuery(Singer.FIND_SINGER_BY_ID, Singer.class);
+    public SingerRecord findById(Long id) {
+        TypedQuery<SingerRecord> query = em.createNamedQuery(SingerRecord.FIND_SINGER_BY_ID, SingerRecord.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public Singer save(Singer singer) {
+    public SingerRecord save(SingerRecord singer) {
         if (singer.getId() == null) {
             logger.info("Inserting new singer");
             em.persist(singer);
@@ -64,8 +64,8 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public void delete(Singer singer) {
-        Singer mergedContact = em.merge(singer);
+    public void delete(SingerRecord singer) {
+        SingerRecord mergedContact = em.merge(singer);
         em.remove(mergedContact);
 
         logger.info("Singer with id: " + singer.getId()  + " deleted successfully");
@@ -73,7 +73,7 @@ public class SingerServiceImpl implements SingerService {
 
     @Transactional(readOnly=true)
     @Override
-    public List<Singer> findAllByNativeQuery() {
+    public List<SingerRecord> findAllByNativeQuery() {
         return em.createNativeQuery(ALL_SINGER_NATIVE_QUERY, "singerResult").getResultList();
     }
 }

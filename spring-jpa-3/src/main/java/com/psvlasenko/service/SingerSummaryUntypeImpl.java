@@ -20,9 +20,9 @@ public class SingerSummaryUntypeImpl {
 	@Transactional(readOnly = true)
 	public void displayAllSingerSummary() {
 		List result = em.createQuery(
-				"select s.firstName, s.lastName, a.title from Singer s "
+				"select s.firstName, s.lastName, a.title from SingerRecord s "
 						+ "left join s.albums a "
-						+ "where a.releaseDate=(select max(a2.releaseDate) from Album a2 where a2.singer.id = s.id)")
+						+ "where a.releaseDate=(select max(a2.releaseDate) from AlbumRecord a2 where a2.singer.id = s.id)")
 				.getResultList();
 		int count = 0;
 		for (Iterator i = result.iterator(); i.hasNext(); ) {

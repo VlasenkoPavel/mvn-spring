@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "album")
-public class Album implements Serializable {
+public class AlbumRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
@@ -29,12 +29,12 @@ public class Album implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "SINGER_ID")
-    private Singer singer;
+    private SingerRecord singer;
 
-    public Album() {
+    public AlbumRecord() {
     }
 
-    public Album(String title, Date releaseDate) {
+    public AlbumRecord(String title, Date releaseDate) {
         this.title = title;
         this.releaseDate = releaseDate;
     }
@@ -71,11 +71,11 @@ public class Album implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public Singer getSinger() {
+    public SingerRecord getSinger() {
         return this.singer;
     }
 
-    public void setSinger(Singer singer) {
+    public void setSinger(SingerRecord singer) {
         this.singer = singer;
     }
 
@@ -93,7 +93,7 @@ public class Album implements Serializable {
             return false;
         if (!super.equals(o))
             return false;
-        Album album = (Album) o;
+        AlbumRecord album = (AlbumRecord) o;
         if (title != null ? !title.equals(album.title) : album.title != null)
             return false;
         return releaseDate != null ? releaseDate.equals(album.releaseDate) : album.releaseDate == null;

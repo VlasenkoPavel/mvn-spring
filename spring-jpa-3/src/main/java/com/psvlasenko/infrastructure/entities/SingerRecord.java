@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.Version;
+
+import com.psvlasenko.domain.ISingerDto;
+
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.OneToMany;
@@ -27,22 +30,22 @@ import javax.persistence.EntityResult;
 @Entity
 @Table(name = "singer")
 @NamedQueries({
-        @NamedQuery(name=Singer.FIND_ALL, query="select s from Singer s"),
-        @NamedQuery(name=Singer.FIND_SINGER_BY_ID,
-                query="select distinct s from Singer s " +
+        @NamedQuery(name=SingerRecord.FIND_ALL, query="select s from SingerRecord s"),
+        @NamedQuery(name=SingerRecord.FIND_SINGER_BY_ID,
+                query="select distinct s from SingerRecord s " +
                         "left join fetch s.albums a " +
                         "left join fetch s.instruments i " +
                         "where s.id = :id"),
-        @NamedQuery(name=Singer.FIND_ALL_WITH_ALBUM,
-                query="select distinct s from Singer s " +
+        @NamedQuery(name=SingerRecord.FIND_ALL_WITH_ALBUM,
+                query="select distinct s from SingerRecord s " +
                         "left join fetch s.albums a " +
                         "left join fetch s.instruments i")
 })
 @SqlResultSetMapping(
      name="singerResult",
-     entities=@EntityResult(entityClass=Singer.class)
+     entities=@EntityResult(entityClass=SingerRecord.class)
 )
-public class Singer implements Serializable {
+public class SingerRecord implements ISingerDto, Serializable {
 
     public static final String FIND_ALL = "Singer.findAll";
     public static final String FIND_SINGER_BY_ID = "Singer.findById";
@@ -68,13 +71,13 @@ public class Singer implements Serializable {
     private Date birthDate;
 
     @OneToMany(mappedBy = "singer", cascade=CascadeType.ALL, orphanRemoval=true)
-    private Set<Album> albums = new HashSet<>();
+    private Set<AlbumRecord> albums = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "singer_instrument",
             joinColumns = @JoinColumn(name = "SINGER_ID"),
             inverseJoinColumns = @JoinColumn(name = "INSTRUMENT_ID"))
-    private Set<Instrument> instruments = new HashSet<>();
+    private Set<InstrumentRecord> instruments = new HashSet<>();
 
     public Long getId() {
         return this.id;
@@ -117,28 +120,28 @@ public class Singer implements Serializable {
     }
 
 
-    public Set<Album> getAlbums() {
+    public Set<AlbumRecord> getAlbums() {
         return this.albums;
     }
 
-    public void setAlbums(Set<Album> albums) {
+    public void setAlbums(Set<AlbumRecord> albums) {
      this.albums = albums;
     }
 
-    public boolean addAlbum(Album album) {
+    public boolean addAlbum(AlbumRecord album) {
         album.setSinger(this);
         return getAlbums().add(album);
     }
 
-    public void removeAlbum(Album album) {
+    public void removeAlbum(AlbumRecord album) {
         getAlbums().remove(album);
     }
 
-    public Set<Instrument> getInstruments() {
+    public Set<InstrumentRecord> getInstruments() {
         return this.instruments;
     }
 
-    public void setInstruments(Set<Instrument> instruments) {
+    public void setInstruments(Set<InstrumentRecord> instruments) {
         this.instruments = instruments;
     }
 

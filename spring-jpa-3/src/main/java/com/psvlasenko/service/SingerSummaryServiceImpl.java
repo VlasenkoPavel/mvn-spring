@@ -22,9 +22,9 @@ public class SingerSummaryServiceImpl implements SingerSummaryService {
 	public List<SingerSummary> findAll() {
 		List<SingerSummary> result = em.createQuery(
 				"select new com.psvlasenko.view.SingerSummary("
-						+ "s.firstName, s.lastName, a.title) from Singer s "
+						+ "s.firstName, s.lastName, a.title) from SingerRecord s "
 						+ "left join s.albums a "
-						+ "where a.releaseDate=(select max(a2.releaseDate) from Album a2 where a2.singer.id = s.id)",
+						+ "where a.releaseDate=(select max(a2.releaseDate) from AlbumRecord a2 where a2.singer.id = s.id)",
 				SingerSummary.class).getResultList();
 		return result;
 	}

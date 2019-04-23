@@ -13,7 +13,7 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "instrument")
-public class Instrument implements Serializable {
+public class InstrumentRecord implements Serializable {
     @Id
     @Column(name = "INSTRUMENT_ID")
     private String instrumentId;
@@ -22,17 +22,17 @@ public class Instrument implements Serializable {
     @JoinTable(name = "singer_instrument",
             joinColumns = @JoinColumn(name = "INSTRUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "SINGER_ID"))
-    private Set<Singer> singers = new HashSet<>();
+    private Set<SingerRecord> singers = new HashSet<>();
 
     public String getInstrumentId() {
         return this.instrumentId;
     }
 
-    public Set<Singer> getSingers() {
+    public Set<SingerRecord> getSingers() {
         return this.singers;
     }
 
-    public void setSingers(Set<Singer> singers) {
+    public void setSingers(Set<SingerRecord> singers) {
         this.singers = singers;
     }
 
