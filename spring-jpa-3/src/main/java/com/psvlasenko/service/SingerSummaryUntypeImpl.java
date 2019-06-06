@@ -25,6 +25,7 @@ public class SingerSummaryUntypeImpl {
 						+ "where a.releaseDate=(select max(a2.releaseDate) from AlbumRecord a2 where a2.singer.id = s.id)")
 				.getResultList();
 		int count = 0;
+
 		for (Iterator i = result.iterator(); i.hasNext(); ) {
 			Object[] values = (Object[]) i.next();
 			System.out.println(++count + ": " + values[0] + ", "

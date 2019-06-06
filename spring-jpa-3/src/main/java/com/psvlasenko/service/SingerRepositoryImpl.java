@@ -15,11 +15,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-// @Service("jpaSingerService")
+@Service("jpaSingerRepo")
 @Repository
 @Transactional
 @SuppressWarnings("unchecked")
-public class SingerRepository implements ISingerRepository {
+public class SingerRepositoryImpl implements ISingerRepository {
     final static String ALL_SINGER_NATIVE_QUERY =
         "select id, first_name, last_name, birth_date, version from singer";
 
@@ -32,8 +32,12 @@ public class SingerRepository implements ISingerRepository {
     @Transactional(readOnly=true)
     @Override
     public List<Singer> findAll() {
-        List<SingerRecord> records = em.createNamedQuery(SingerRecord.FIND_ALL, SingerRecord.class).getResultList();
+        List<SingerRecord> records = em.createNativeQuery(ALL_SINGER_NATIVE_QUERY, SingerRecord.class).getResultList();
         var singers = new ArrayList<Singer>();
+
+        for (SingerRecord record : records) {
+            singers.add(new Singer(record));
+        }
 
         return singers;
     }
