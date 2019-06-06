@@ -15,11 +15,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-@Service("jpaSingerRepo")
 @Repository
 @Transactional
 @SuppressWarnings("unchecked")
-public class SingerRepositoryImpl implements ISingerRepository {
+public class SingerRepository implements ISingerRepository {
     final static String ALL_SINGER_NATIVE_QUERY =
         "select id, first_name, last_name, birth_date, version from singer";
 

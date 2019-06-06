@@ -3,10 +3,7 @@ package com.psvlasenko;
 import java.util.List;
 
 import com.psvlasenko.domain.Singer;
-import com.psvlasenko.infrastructure.entities.SingerRecord;
 import com.psvlasenko.service.ISingerRepository;
-import com.psvlasenko.service.SingerRepositoryImpl;
-import com.psvlasenko.service.SingerService;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class SpringJPADemo {
@@ -15,7 +12,6 @@ public class SpringJPADemo {
         ctx.load("classpath:spring/app-context-annotation.xml");
         ctx.refresh();
 
-        SingerService singerService = ctx.getBean(SingerService.class);
         ISingerRepository singerRepository = ctx.getBean(ISingerRepository.class);
         List<Singer> singers = singerRepository.findAll();
 
